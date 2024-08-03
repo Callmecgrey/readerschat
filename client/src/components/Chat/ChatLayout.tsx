@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import UserList from './UserList';
-import ChatScreen from './ChatScreen';
+import ChatScreen from './ChatWindow';
 
 const ChatLayout: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
