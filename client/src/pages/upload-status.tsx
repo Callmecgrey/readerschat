@@ -1,8 +1,13 @@
 import React from 'react';
+import DashboardLayout from '../components/Layout/DashboardLayout';
 import UploadStatus from '../components/Status/UploadStatus';
 
 const UploadStatusPage: React.FC = () => {
-  return <UploadStatus />;
+  return (
+    <DashboardLayout>
+      <UploadStatus />
+    </DashboardLayout>
+  );
 };
 
 export default UploadStatusPage;

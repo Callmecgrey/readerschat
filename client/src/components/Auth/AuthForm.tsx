@@ -1,15 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import { login, signup } from '../../utils/api';
+import { saveToken } from '../../utils/auth';
 
-const AuthForm: React.FC<{ isLogin: boolean }> = ({ isLogin }) => {
+interface AuthFormProps {
+  isLogin: boolean;
+}
+
+const AuthForm: React.FC<AuthFormProps> = ({ isLogin }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const response = isLogin ? await login(username, password) : await signup(username, password);
+
+    if (response.success) {
+      saveToken(response.token);
+      router.push('/chat');
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-2xl">{isLogin ? 'Login' : 'Signup'}</h1>
-      <form className="flex flex-col mt-4">
-        <input type="text" placeholder="Username" className="p-2 border border-gray-400" />
-        <input type="password" placeholder="Password" className="p-2 border border-gray-400 mt-2" />
-        <button type="submit" className="p-2 mt-4 bg-blue-500 text-white">{isLogin ? 'Login' : 'Signup'}</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">
+        {isLogin ? 'Login' : 'Signup'}
+      </button>
+    </form>
   );
 };
 

@@ -1,14 +1,24 @@
-// Mock authentication utility functions
+const TOKEN_KEY = 'readerschat_token';
 
-export const isAuthenticated = () => {
-    return localStorage.getItem('token') !== null;
-  };
+export const saveToken = (token: string) => {
+  localStorage.setItem(TOKEN_KEY, token);
+};
+
+export const removeToken = () => {
+  localStorage.removeItem(TOKEN_KEY);
+};
+
+export const getToken = () => {
+  return localStorage.getItem(TOKEN_KEY);
+};
+
+export const getUser = async () => {
+  const token = getToken();
+  if (!token) {
+    return null;
+  }
   
-  export const saveToken = (token: string) => {
-    localStorage.setItem('token', token);
-  };
-  
-  export const clearToken = () => {
-    localStorage.removeItem('token');
-  };
-  
+  // Dummy user data for illustration purposes
+  // In a real-world scenario, you would fetch user details from an API using the token
+  return { username: 'John Doe' };
+};

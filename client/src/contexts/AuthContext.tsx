@@ -1,25 +1,37 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { getUser, removeToken } from '../utils/auth';
 
-interface AuthContextType {
-  isLoggedIn: boolean;
-  login: () => void;
+interface AuthContextProps {
+  user: { username: string } | null;
   logout: () => void;
 }
 
-export const AuthContext = createContext<AuthContextType>({
-  isLoggedIn: false,
-  login: () => {},
+export const AuthContext = createContext<AuthContextProps>({
+  user: null,
   logout: () => {},
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<{ username: string } | null>(null);
+  const router = useRouter();
 
-  const login = () => setIsLoggedIn(true);
-  const logout = () => setIsLoggedIn(false);
+  useEffect(() => {
+    const loadUser = async () => {
+      const user = await getUser();
+      setUser(user);
+    };
+    loadUser();
+  }, []);
+
+  const logout = () => {
+    removeToken();
+    setUser(null);
+    router.push('/');
+  };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ user, logout }}>
       {children}
     </AuthContext.Provider>
   );
