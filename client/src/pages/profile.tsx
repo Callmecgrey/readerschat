@@ -8,7 +8,7 @@ const ProfilePage: React.FC = () => {
     username: 'John Doe',
     email: 'john.doe@example.com',
     bio: 'Just a regular user.',
-    profilePicture: 'https://img.icons8.com/ios/50/user--v1.png', // Example path
+    profilePicture: 'https://img.icons8.com/fluency/96/user-male-circle--v1.png', // Example path
     contactNumber: '+1234567890'
   };
 
