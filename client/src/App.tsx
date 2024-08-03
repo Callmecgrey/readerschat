@@ -5,8 +5,10 @@ import LoginPage from './pages/login';
 import SignupPage from './pages/signup';
 import ChatPage from './pages/chat';
 import FindReadersPage from './pages/find-readers';
-import UploadStatusPage from './pages/upload-status';
+import Feeds from './pages/feeds';
 import RateNovelPage from './pages/rate-novel';
+import MyFriendsPage from './pages/my-friends'; // Add this import
+import ProfilePage from './pages/profile'; // Add this import
 
 const App: React.FC = () => {
   return (
@@ -17,8 +19,10 @@ const App: React.FC = () => {
         <Route path="/signup" component={SignupPage} />
         <Route path="/chat" component={ChatPage} />
         <Route path="/find-readers" component={FindReadersPage} />
-        <Route path="/upload-status" component={UploadStatusPage} />
+        <Route path="/feeds" component={Feeds} />
         <Route path="/rate-novel" component={RateNovelPage} />
+        <Route path="/my-friends" component={MyFriendsPage} /> {/* Add this route */}
+        <Route path="/profile" component={ProfilePage} /> {/* Add this route */}
       </Switch>
     </Router>
   );

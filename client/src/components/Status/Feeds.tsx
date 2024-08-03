@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UploadStatus: React.FC = () => {
+const Feeds: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <h1 className="text-2xl">Upload Status</h1>
@@ -12,4 +12,4 @@ const UploadStatus: React.FC = () => {
   );
 };
 
-export default UploadStatus;
+export default Feeds;
